@@ -1,0 +1,13 @@
+body {
+  font: normal 16px/1.2 Calibri, sans-serif;
+}
+
+.clusterize table {
+  width: 100%;
+  border: 10px solid #000;
+  border-collapse: collapse;
+  border-spacing: 1;
+}
+.clusterize td {
+  border: 1px solid #000;
+}

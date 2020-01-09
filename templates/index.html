@@ -11,7 +11,20 @@
 </head>
 
 <body>
+<script src="{{ url_for('static', filename='clusterize.min.js') }}"></script>
 
+
+  <h3>text = fast</h3>
+  <div class="clusterize">
+    <div id="scroll-area1" class="clusterize-scroll">
+      <table>
+        <tbody id="content-area1" class="clusterize-content">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<!-- 
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
@@ -44,12 +57,12 @@
           <div id="bubble"></div>
         </div>
       </div>
-  </div>
+  </div> -->
   <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-
+  <link href="{{ url_for('static', filename='clusterize.css') }}" rel="stylesheet">
 </body>
 
 </html>
