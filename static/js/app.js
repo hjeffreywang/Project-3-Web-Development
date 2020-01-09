@@ -1,3 +1,25 @@
+function init() {
+  // Grab a reference to the dropdown select element
+  var selector = d3.select("#selDataset");
+
+  // Use the list of sample names to populate the select options
+  d3.json("/years").then((sampleNames) => {
+    sampleNames.forEach((sample) => {
+      selector
+        .append("option")
+        .text(sample)
+        .property("value", sample);
+    });
+
+    // Use the first sample from the list to build the initial plots
+    const firstSample = sampleNames[0];
+    buildBarCharts(firstSample);
+    buildMetadata(firstSample);
+    
+    buildMeanCharts(firstSample);
+  });
+}
+
 function buildMetadata(sample) {
     
     // @TODO: Complete the following function that builds the metadata panel
@@ -18,96 +40,113 @@ function buildMetadata(sample) {
             md_panel.append("p").text(`${k[0]}: ${k[1]}`);
         });
 
-        // BONUS: Build the Gauge Chart
-        // buildGauge(data.WFREQ);
+
+        
     });    
 }
 
-function buildCharts(sample) {
-
+function buildBarCharts(sample) {
+    //graphs should gemerally have this type of format
     // @TODO: Use `d3.json` to fetch the sample data for the plots
-    d3.json(`./samples/${sample}`).then(sample_data => {
-        graph_data = Object.entries(sample_data)
-        console.log(graph_data)
+    d3.json(`./chartdata/${sample}`).then(sample_data => {
+        bargraph_data = Object.entries(sample_data)
         
-        // @TODO: Build a Pie Chart
-        // HINT: You will need to use slice() to grab the top 10 sample_values,
-        // otu_ids, and labels (10 each).
-        var data = [{
-            type: 'pie',
-            values: graph_data[2][1].slice(0,10),
-            labels: graph_data[0][1].slice(0,10),
-            hovertext: graph_data[1][1].slice(0,10),
-            automargin: true
-        }];
 
+
+        //this is for inspecting the values in console 
+        console.log(bargraph_data)
+        console.log(Object.values(bargraph_data[7][1]))
+        console.log(Object.values(bargraph_data[1][1]))
+        console.log(Object.values(bargraph_data[0][1]))
+        
+        // building a horizontal bar chart
+
+        // dict keys are autolabeled alphabetical order: 
+        // [0]Countryorregion
+        // [1] Freedomtomakelifechoices
+        // [2] GDPpercapita
+        // [3] Generosity
+        // [4] Healthylifeexpectancy
+        // [5] Overallrank
+        // [6] Perceptionsofcorruption
+        // [7] Score
+        // [8] Socialsupport
+        
+
+        var data = [{
+            type: 'bar',
+            x: Object.values(bargraph_data[7][1]).slice(0,20),
+            y: Object.values(bargraph_data[0][1]).slice(0,20),
+            hovertext: Object.values(bargraph_data[0][1]),
+            automargin: true,
+            orientation: 'h',
+            transforms: [{
+                  type: 'sort',
+                  target: 'y',
+                  order: 'descending'
+                        }]
+        }];
+       
         var layout = {
+            height: 1400,
+            width: 1400,
+            margin:{"t": 25, "b": 0, "l": 0, "r": 0}
+        };
+
+        Plotly.newPlot('bar', data, layout);
+
+        
+    });
+}
+
+function buildMeanCharts(sample) {
+    //graphs should gemerally have this type of format
+    // @TODO: Use `d3.json` to fetch the sample data for the plots
+    d3.json(`./avgbarchartdata/${sample}`).then(sample_data => {
+        bargraph_data = Object.entries(sample_data)
+        
+
+
+        //this is for inspecting the values in console 
+        console.log(bargraph_data)
+        console.log(Object.values(bargraph_data[1][1]))
+        console.log(Object.values(bargraph_data[0][1]))
+        
+        // building a horizontal bar chart
+        
+
+        var data2 = [{
+            type: 'bar',
+            x: Object.values(bargraph_data[1][1]),
+            y: Object.keys(bargraph_data[0][1]),
+            hovertext: Object.values(bargraph_data[0][1]),
+            automargin: true,
+            orientation: 'h',
+            transforms: [{
+                  type: 'sort',
+                  target: 'x',
+                  order: 'descending'
+                        }]
+        }];
+       
+        var layout2 = {
             height: 400,
             width: 400,
             margin:{"t": 25, "b": 0, "l": 0, "r": 0}
         };
 
-        Plotly.newPlot('pie', data, layout);
+        Plotly.newPlot('bar', data2, layout2);
 
-        // @TODO: Build a Bubble Chart using the sample data
-        var desired_maximum_marker_size = 40;
-        var size = [400, 600, 800, 1000];
-        var trace = {
-          x: graph_data[0][1],
-          y: graph_data[2][1],
-          text: graph_data[1][1],
-          mode: 'markers',
-          marker: {
-            colorscale: 'Earth',
-            color: graph_data[0][1],
-            size: graph_data[2][1],
-          }
-        };
-
-        var data = [trace];
-
-        var layout = {
-          height: 500,
-          width: 1250,
-          x_label: 'OTU ID',
-          xaxis: {
-            title: "OTU ID",
-            range: [0, graph_data[0][1]]
-          },
-          yaxis: {
-            range: [0, 350]
-          },
-          showlegend: false
-        };
-
-        Plotly.newPlot('bubble', data, layout);    
+        
     });
 }
 
-function init() {
-  // Grab a reference to the dropdown select element
-  var selector = d3.select("#selDataset");
 
-  // Use the list of sample names to populate the select options
-  d3.json("/names").then((sampleNames) => {
-    sampleNames.forEach((sample) => {
-      selector
-        .append("option")
-        .text(sample)
-        .property("value", sample);
-    });
-
-    // Use the first sample from the list to build the initial plots
-    const firstSample = sampleNames[0];
-    buildCharts(firstSample);
-    buildMetadata(firstSample);
-  });
-}
-
-function optionChanged(newSample) {
+function optionChanged(newyear) {
   // Fetch new data each time a new sample is selected
-  buildCharts(newSample);
-  buildMetadata(newSample);
+  buildBarCharts(newyear);
+  buildMetadata(newyear);
+  buildMeanCharts(newyear);
 }
 
 // Initialize the dashboard
