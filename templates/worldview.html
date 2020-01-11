@@ -15,8 +15,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
     <!-- plotly-->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- tool tips-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <!-- dynatable-->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Dynatable/0.3.1/jquery.dynatable.min.js"></script>
+ -->
 
   <!-- datatables-->
   
@@ -63,16 +64,6 @@
       <div class="col-md-5">
 
 
-
-
-
-
-
-
-
-
-
-
             <!-- TABLE! -->
        <table id="summarytable" class="display" width="100%"></table>
        <!--      <table id="summarytable">
@@ -101,13 +92,11 @@
       <div class="row">
         <div class="col-md-8">
           <div id="bubble"></div>
-         
+          
         </div>
       </div>
   </div>
-
-<!-- PAGE JAVASCRIPT SCRIPTS!!!!!!!!!!! -->
-
+  
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
