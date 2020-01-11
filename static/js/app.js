@@ -1,3 +1,8 @@
+//tabulator package import
+// var requirejs = require('requirejs');
+// var Tabulator = require('tabulator-tables');
+
+
 function init() {
   // Grab a reference to the dropdown select element
   var selector = d3.select("#selDataset");
@@ -15,7 +20,7 @@ function init() {
     const firstSample = sampleNames[0];
     buildBarCharts(firstSample);
     buildMetadata(firstSample);
-    
+    builddatatable(firstSample)
     buildMeanCharts(firstSample);
   });
 }
@@ -142,11 +147,50 @@ function buildMeanCharts(sample) {
 }
 
 
+
+function builddatatable(sample) {
+    //graphs should gemerally have this type of format
+    // @TODO: Use `d3.json` to fetch the sample data for the plots
+    d3.json(`./jsondata/${sample}`).then(sample_data => {
+        bargraph_data = sample_data
+        
+
+
+        //this is for inspecting the values in console 
+        console.log(bargraph_data)
+        
+         var sumtable = $('#summarytable')
+        // building a table
+        myRecords = bargraph_data;
+         
+            sumtable.DataTable ({
+        "data" : bargraph_data,
+        
+        "columns" : [
+            { "data" : "Overallrank" , title :"Rank" },
+            { "data" : "Countryorregion", title :"Country" },
+            { "data" : "Score" , title :"Score"},
+            { "data" : "GDPpercapita", title :"GDP per capita" },
+            { "data" : "Healthylifeexpectancy", title :"Health" },
+            { "data" : "Perceptionsofcorruption", title :"Perception of corruption" },
+            { "data" : "Freedomtomakelifechoices", title :"Freedom" },
+            { "data" : "Generosity", title :"Generosity" },
+            { "data" : "Socialsupport", title :"Social support" }
+        ],
+    error: function (obj, textstatus) {
+        alert(obj.msg);
+    }
+}); 
+});
+}
+
+
 function optionChanged(newyear) {
   // Fetch new data each time a new sample is selected
   buildBarCharts(newyear);
   buildMetadata(newyear);
-  buildMeanCharts(newyear);
+  buildMeanCharts(newyear)
+  builddatatable(newyear);
 }
 
 // Initialize the dashboard

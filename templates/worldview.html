@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <!-- loading javascript scripts-->
   
 
@@ -16,15 +15,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
     <!-- plotly-->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- dynatable failed-->
- <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/Dynatable/0.3.1/jquery.dynatable.min.js"></script>
-  --> 
+    <!-- dynatable-->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Dynatable/0.3.1/jquery.dynatable.min.js"></script>
+ -->
 
-
-
-
-
-
+  <!-- datatables-->
+  
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 
 <head>
@@ -37,6 +34,9 @@
 </head>
 
 <body>
+
+
+
 
   <div class="container">
     <div class="row">
@@ -62,19 +62,41 @@
         <div id="bar"></div>
       </div>
       <div class="col-md-5">
+
+
+            <!-- TABLE! -->
+       <table id="summarytable" class="display" width="100%"></table>
+       <!--      <table id="summarytable">
+              <thead>
+                <th>countryorregion</th>
+                <th>freedomtomakelifechoices</th>
+                <th>gdppercapita</th>
+                <th>generosity</th>
+                <th>healthylifeexpectancy</th>
+                <th>overallrank</th>
+                <th>perceptionsofcorruption</th>
+                <th>score</th>
+                <th>socialsupport</th>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+ -->
+
+
+
+
         <div id="gauge"></div>
       </div>
     </div>
       <div class="row">
         <div class="col-md-8">
           <div id="bubble"></div>
-          <div id="example-table"></div>
+          
         </div>
       </div>
   </div>
-  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
