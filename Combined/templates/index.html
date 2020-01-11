@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>World Happiness</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+    
+    <!-- Heading -->
+    <div class="row">
+      <div class="col-md-12 jumbotron text-center">
+        <h2>World Happiness Reporting Dashboard</h2>
+        <p>Use the interactive charts below to explore the dataset</p>
+      </div>
+    </div>
+
+
+   <div class="row">
+
+      <div class="col-md-6">
+
+<!-- Year selection for happiness data shown -->
+        <div class="well">
+          <h5>SELECT Year:</h5>
+          <select id="selDataset" onchange="optionChanged(this.value)">
+            
+          </select>
+        </div>
+<!-- Area where happiness data is inserted -->
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center">Happiness Data</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body"></div>
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+<!-- This injects the bar chart onto the page -->
+        <div id="bar"></div>
+        <br>
+<!-- These images will be clickable and take you to a new page -->  
+        <hr>
+        <a href="factors"><img target="_blank" src="static/img/circles.png" width = "310" height ="200" alt="Happiness Factors"></a>
+        <a href="worldview"><img target="_blank" src="static/img/worldview.png" width = "310" height ="200" alt="World View"><br></a>
+        <a href="bar2018"><img target="_blank" src="static/img/bar1.png" width = "310" height ="200" alt="Image 3"></a>
+        <a href="bar2019"><img target="_blank" src="static/img/bar2.png" width = "310" height ="200" alt="Image 4"></a>
+
+      </div>
+
+    </div>
+
+
+  <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app1.js') }}"></script>
+</body>
+
+</html>
+
