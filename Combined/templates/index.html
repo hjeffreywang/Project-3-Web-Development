@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>World Happiness Summary</title>
+  <title>World Happiness</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 </head>
@@ -13,49 +13,54 @@
 <body>
 
   <div class="container">
+    
+    <!-- Heading -->
     <div class="row">
-      <div class="col-md-12 text-center">
-        <h1>World Happiness</h1>
+      <div class="col-md-12 jumbotron text-center">
+        <h2>World Happiness Reporting Dashboard</h2>
+        <p>Use the interactive charts below to explore the dataset</p>
       </div>
     </div>
-  </div>
-  
-  <hr>
 
-  <div class="row">
-    <div class="col-md-7">
 
-<!-- This is the section where you are able to select the years -->
-      <div class="well">
-        <h5>SELECT Year:</h5>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+   <div class="row">
+
+      <div class="col-md-6">
+
+<!-- Year selection for happiness data shown -->
+        <div class="well">
+          <h5>SELECT Year:</h5>
+          <select id="selDataset" onchange="optionChanged(this.value)">
+            
+          </select>
+        </div>
+<!-- Area where happiness data is inserted -->
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center">Happiness Data</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body"></div>
+        </div>
+
       </div>
 
-<!-- This is the section where you are able to load the happiness data into a table -->
-      <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Happiness Data</h3>
-        <div id="sample-metadata" class="panel-body"></div>
-      </div>
-      </div>
-
-<!-- This is the section where you are able to see the bar chart -->
-  <div class="col-md-5">
-      <div id="bar"></div>
-  
+      <div class="col-md-6">
+<!-- This injects the bar chart onto the page -->
+        <div id="bar"></div>
+        <br>
 <!-- These images will be clickable and take you to a new page -->  
-  <hr>
-  <a href="factors">
-    <img target="_blank" src="assets/images/circles.png" width = "210" height ="186" alt="Happiness Factors"></a>
-  <a href="plot2_humidity.html"></a>
-    <img target="_blank" src="assets/images/Fig2.png" width = "210" height ="186" alt="Image 2"><br></a>
-  <a href="plot3_cloudiness.html"></a>
-    <img target="_blank" src="assets/images/Fig3.png" width = "210" height ="186" alt="Image 3"></a>
-  <a href="plot4_wind.html">
-    <img target="_blank" src="assets/images/Fig4.png" width = "210" height ="186" alt="Image 4"></a> 
-</div>
+        <hr>
+        <a href="factors"><img target="_blank" src="circles.png" width = "310" height ="200" alt="Happiness Factors"></a>
+        <a href="worldview"></a><img target="_blank" src="worldview.png" width = "310" height ="200" alt="World View"><br></a>
+        <a href="bar2018"></a><img target="_blank" src="bar1.png" width = "310" height ="200" alt="Image 3"></a>
+        <a href="bar2019"><img target="_blank" src="bar2.png" width = "310" height ="200" alt="Image 4"></a>
 
-<!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
+      </div>
+
+    </div>
+
+
+  <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
@@ -63,3 +68,4 @@
 </body>
 
 </html>
+

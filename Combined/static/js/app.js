@@ -47,7 +47,8 @@ function buildMetadata(sample) {
 
 function buildBarCharts(sample) {
     //graphs should gemerally have this type of format
-    // @TODO: Use `d3.json` to fetch the sample data for the plots
+
+    //fetch the data
     d3.json(`./chartdata/${sample}`).then(sample_data => {
         bargraph_data = Object.entries(sample_data)
         
@@ -89,8 +90,9 @@ function buildBarCharts(sample) {
        
         var layout = {
             height: 1400,
-            width: 1400,
-            margin:{"t": 25, "b": 0, "l": 0, "r": 0}
+            width: 1600,
+            margin:{"t": 25, "b": 0, "l": 0, "r": 0},
+            title: "Average Summary Scores"
         };
 
         Plotly.newPlot('bar', data, layout);
@@ -132,7 +134,8 @@ function buildMeanCharts(sample) {
         var layout2 = {
             height: 400,
             width: 400,
-            margin:{"t": 25, "b": 0, "l": 0, "r": 0}
+            margin:{"t": 25, "b": 0, "l": 0, "r": 0},
+            marker_color: "crimson"
         };
 
         Plotly.newPlot('bar', data2, layout2);
