@@ -149,6 +149,7 @@ function buildMeanCharts(sample) {
 
 
 function builddatatable(sample) {
+
     //graphs should gemerally have this type of format
     // @TODO: Use `d3.json` to fetch the sample data for the plots
     d3.json(`./jsondata/${sample}`).then(sample_data => {
@@ -187,6 +188,8 @@ function builddatatable(sample) {
 
 function optionChanged(newyear) {
   // Fetch new data each time a new sample is selected
+
+$('#summarytable').DataTable().clear().destroy();
   buildBarCharts(newyear);
   buildMetadata(newyear);
   buildMeanCharts(newyear)
