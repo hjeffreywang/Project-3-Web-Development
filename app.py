@@ -1,5 +1,5 @@
 import os
-
+import json
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -7,6 +7,8 @@ from sqlalchemy import create_engine
 from sqlalchemy import MetaData, Table, Column, ForeignKey, String, Integer
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template
+
 
 app = Flask(__name__)
 
@@ -74,12 +76,40 @@ dfmeanvaluelist=dfmean.values.tolist()
 # using naive method to convert lists to dictionary 
 dfmeandict = { 'indexes': dfmeanindexlist, 'means' : dfmeanvaluelist } 
 
+with open('./db/2018.json') as json_file:
+        datas=json.load(json_file)
+
 
 @app.route("/")
 def index():
     """Return the homepage."""
     return render_template("index.html")
 
+'''include all alternate routes here'''
+
+''' 2018 world view '''
+@app.route("/worldview2018")
+def worldview2018():
+    """go to worldview 2018 page."""
+    return render_template("worldview2018.html")
+
+''' 2019 world view '''
+@app.route("/worldview2019")
+def worldview2019():
+    """go to worldview 2019 page."""
+    return render_template("worldview2019.html")
+
+''' 2018 factors '''
+@app.route("/factors")
+def factors():
+    """Return the 2018 factors page."""
+    return render_template("factors.html")
+
+''' 2019 factors '''
+@app.route("/factors2")
+def factors2():
+    """Return the 2019 factors page."""
+    return render_template("factors2.html")
 
 @app.route("/years")
 def years():
@@ -165,8 +195,9 @@ def chartdatas(year):
 
 
         return jsonify(results)
+ 
+    
 
-#work on this after 11
 @app.route("/avgbarchartdata/<year>")
 def avgbarchartdatas(year):
     """Return the x and y for bar chart."""
@@ -225,6 +256,21 @@ def avgbarchartdatas(year):
 
 
         return jsonify(dfmeandict)  
+
+@app.route("/jsondata/<year>")
+def jsondata(year):
+	#upload json data
+    if year=="year2019":
+        with open('./db/2019.json') as json_file:
+            data=json.load(json_file)
+            
+        return(jsonify(data))
+        
+    else:
+        with open('./db/2018.json') as json_file:
+            data=json.load(json_file)
+            
+        return(jsonify(data))
 
 
 if __name__ == "__main__":

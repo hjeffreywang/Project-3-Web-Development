@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>World Happiness</title>
+		
+	<link rel="stylesheet" type="text/css" href="static/css/style.css">
+	
+</head>
+	
+<body>
+{% extends "layout.html" %}
+{% block content %}
+	<br>
+	<br>
+
+  <h1> World Happiness Report - 2019 Factors</h1>
+	<br>
+	<div class="chart"></div>
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+
+	<script src="{{ url_for('static', filename='js/app2.js') }}"></script>
+
+{% endblock %}		
+
+</body>
+
+</html>

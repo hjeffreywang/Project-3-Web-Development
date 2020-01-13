@@ -1,3 +1,8 @@
+//tabulator package import
+// var requirejs = require('requirejs');
+// var Tabulator = require('tabulator-tables');
+
+
 function init() {
   // Grab a reference to the dropdown select element
   var selector = d3.select("#selDataset");
@@ -15,7 +20,7 @@ function init() {
     const firstSample = sampleNames[0];
     buildBarCharts(firstSample);
     buildMetadata(firstSample);
-    
+    builddatatable(firstSample)
     buildMeanCharts(firstSample);
   });
 }
@@ -78,19 +83,30 @@ function buildBarCharts(sample) {
             x: Object.values(bargraph_data[7][1]).slice(0,20),
             y: Object.values(bargraph_data[0][1]).slice(0,20),
             hovertext: Object.values(bargraph_data[0][1]),
+            marker: {
+                    color: 'rgba(158,100,125,.5)',
+                    line: {
+                      color: 'rgb(18,48,107)',
+                      width: 1.5
+                    }},
+             text: Object.values(bargraph_data[0][1]).slice(0,20).map(String),
+             textposition: 'auto',
+            
             automargin: true,
             orientation: 'h',
             transforms: [{
                   type: 'sort',
-                  target: 'y',
-                  order: 'descending'
+                  target: 'x',
+                  order: 'ascending'
                         }]
         }];
        
         var layout = {
             height: 1400,
             width: 1400,
+            title: 'Top 20 Happiest Countries',
             margin:{"t": 25, "b": 0, "l": 0, "r": 0}
+            
         };
 
         Plotly.newPlot('bar', data, layout);
@@ -120,6 +136,15 @@ function buildMeanCharts(sample) {
             x: Object.values(bargraph_data[1][1]),
             y: Object.keys(bargraph_data[0][1]),
             hovertext: Object.values(bargraph_data[0][1]),
+            marker: {
+                    color: 'rgba(58,200,225,.5)',
+                    line: {
+                      color: 'rgb(8,48,107)',
+                      width: 1.5
+                    }},
+             text: bargraph_data[0][1].map(String),
+             textposition: 'auto',
+            
             automargin: true,
             orientation: 'h',
             transforms: [{
@@ -130,24 +155,71 @@ function buildMeanCharts(sample) {
         }];
        
         var layout2 = {
-            height: 400,
-            width: 400,
+            height: 600,
+            width: 1400,
+            title: 'Average Factor Contributions',
             margin:{"t": 25, "b": 0, "l": 0, "r": 0}
         };
 
-        Plotly.newPlot('bar', data2, layout2);
+        Plotly.newPlot('bar2', data2, layout2);
 
         
     });
 }
 
 
+
+function builddatatable(sample) {
+
+    //graphs should gemerally have this type of format
+    // @TODO: Use `d3.json` to fetch the sample data for the plots
+    d3.json(`./jsondata/${sample}`).then(sample_data => {
+        bargraph_data = sample_data
+        
+
+
+        //this is for inspecting the values in console 
+        console.log(bargraph_data)
+        
+         var sumtable = $('#summarytable')
+        // building a table
+        myRecords = bargraph_data;
+         
+            sumtable.DataTable ({
+        "data" : bargraph_data,
+        
+        "columns" : [
+            { "data" : "Overallrank" , title :"Rank" },
+            { "data" : "Countryorregion", title :"Country" },
+            { "data" : "Score" , title :"Score"},
+            { "data" : "GDPpercapita", title :"GDP per capita" },
+            { "data" : "Healthylifeexpectancy", title :"Health" },
+            { "data" : "Perceptionsofcorruption", title :"Perception of corruption" },
+            { "data" : "Freedomtomakelifechoices", title :"Freedom" },
+            { "data" : "Generosity", title :"Generosity" },
+            { "data" : "Socialsupport", title :"Social support" }
+        ],
+    error: function (obj, textstatus) {
+        alert(obj.msg);
+    }
+}); 
+});
+}
+
+
 function optionChanged(newyear) {
   // Fetch new data each time a new sample is selected
+
+$('#summarytable').DataTable().clear().destroy();
   buildBarCharts(newyear);
   buildMetadata(newyear);
-  buildMeanCharts(newyear);
+  buildMeanCharts(newyear)
+  builddatatable(newyear);
 }
 
 // Initialize the dashboard
 init();
+
+
+// =================================================================================================
+//==================================================================================================

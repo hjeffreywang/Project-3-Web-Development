@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>World Happiness</title>
+    <link rel="stylesheet" href="static/css/main.css">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="logo">World Happiness Report</h1>
+        <strong><nav>
+          <ul class="menu">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('factors') }}">2018 Factors</a></li>
+            <li><a href="{{ url_for('factors2') }}">2019 Factors</a></li>
+            <li><a href="{{ url_for('worldview2018') }}">2018 World View</a></li>
+            <li><a href="{{ url_for('worldview2019') }}">2019 World View</a></li>
+          </ul>
+        </nav></strong>
+      </div>
+    </header>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

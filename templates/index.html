@@ -1,53 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
+
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>World Happiness Summary</title>
+  <title>World Happiness</title> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- loading javascript scripts-->
+  
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+    <!-- jquery ui -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+    crossorigin="anonymous"></script>
+  <!-- d3-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <!-- plotly-->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- tool tips-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+
+  <!-- datatables-->
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 
 </head>
 
 <body>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>Belly Button Biodiversity Dashboard</h1>
-        <p>Use the interactive charts below to explore the dataset</p>
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container">
+
+<!-- Area at top where images appear leading to additional pages containing charts -->
+
+<!-- These images will be clickable and take you to a new page -->  
+<div class="row text-center">
+      <div class="col-md-3">
+      <p>2018 Factors</p>
+        <a href="factors"><img title="2018 Happiness Factors" target="_blank" src="static/img/circles18.png" width = "275" height ="190" alt="Happiness Factors"></a>
       </div>
+
+      <div class="col-md-3">
+        <p>2018 World View</p>
+        <a href="worldview2018"><img title="2018 World View" target="_blank" src="static/img/world18.png" width = "275" height ="190" alt="World View"><br></a>
+      </div>
+
+      <div class="col-md-3">
+        <p>2019 Factors</p>
+        <a href="factors2"><img title="2019 Happiness Factors" target="_blank" src="static/img/circles19.png" width = "275" height ="190" alt="Happiness Factors"></a>
+      </div>
+      
+      <div class="col-md-3">    
+        <p>2019 World View</p>
+        <a href="worldview2019"><img title="2019 World View" target="_blank" src="static/img/world19.png" width = "275" height ="190" alt="World View"></a>
+      </div>
+
     </div>
-    <div class="row">
-      <div class="col-md-2">
+
+<!-- Here's the interactive year toggle that controls the blue bar charts -->
+<div class="row">
+
+      <div class="col-md-12 text-center">
         <div class="well">
           <h5>SELECT Year:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Sample MetaData</h3>
-          </div>
-          <div id="sample-metadata" class="panel-body"></div>
-        </div>
       </div>
-      <div class="col-md-5">
+</div>
+
+<!-- Here's the interactive bar chart connected to the year toggle -->
+<div class="row">
+      <div class="col-md-6">
         <div id="bar"></div>
+        
       </div>
-      <div class="col-md-5">
-        <div id="gauge"></div>
-      </div>
-    </div>
-      <div class="row">
-        <div class="col-md-8">
-          <div id="bubble"></div>
-        </div>
-      </div>
+
+      
+</div>
+
+
+<!-- Details before the table -->
+<div class="col-md-6">
+  <div id="bar2"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 text-center">
+    <hr>
+    <h3>Use the features below to explore the dataset</h3>
+    <hr>
   </div>
-  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+<!-- <div id="bar"></div> --> 
+
+<!-- TABLE! -->
+  <table id="summarytable" class="display" width="100%"></table>
+  </div>
+</div>
+
+</div>
+
+
+<!-- PAGE JAVASCRIPT SCRIPTS!!!!!!!!!!! -->
+
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
