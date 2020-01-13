@@ -102,8 +102,8 @@ function buildBarCharts(sample) {
         }];
        
         var layout = {
-            height: 1400,
-            width: 1400,
+            height: 800,
+            width: 1100,
             title: 'Top 20 Happiest Countries',
             margin:{"t": 25, "b": 0, "l": 0, "r": 0}
             
@@ -155,8 +155,8 @@ function buildMeanCharts(sample) {
         }];
        
         var layout2 = {
-            height: 600,
-            width: 1400,
+            height: 500,
+            width: 1000,
             title: 'Average Factor Contributions',
             margin:{"t": 25, "b": 0, "l": 0, "r": 0}
         };

@@ -63,8 +63,8 @@ function renderCircles(circlesGroup, newXScale, chosenXaxis) {
 // function used for updating circles group with new tooltip
 function updateToolTip(chosenXAxis, circlesGroup) {
 
-  if (chosenXAxis === "Freedomtomakelifechoices") {
-    var label = "Freedom";
+  if (chosenXAxis === "Socialsupport") {
+    var label = "Social Support";
   }
   else if (chosenXAxis === "GDPpercapita") {
     var label = "GDP per Capita";
@@ -79,7 +79,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     var label = "Perceptions of Corruption";
   }  
   else {
-    var label = "Social Support";
+    var label = "Freedomtomakelifechoices";
   }
 
   var toolTip = d3.tip()
